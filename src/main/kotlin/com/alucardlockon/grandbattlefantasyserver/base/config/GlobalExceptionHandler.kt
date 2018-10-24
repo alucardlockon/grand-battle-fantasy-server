@@ -13,7 +13,7 @@ internal class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception::class)
     fun defaultErrorHandler(e: Exception): ApiResult {
-        return ApiResult(200,null,e.message)
+        return ApiResult(null,e.message,200)
     }
 
 }

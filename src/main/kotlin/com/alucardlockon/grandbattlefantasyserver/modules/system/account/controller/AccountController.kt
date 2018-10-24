@@ -16,27 +16,27 @@ class AccountController {
 
     @GetMapping("/")
     fun list(page: Page<Account>): ApiResult {
-        return ApiResult(data = service.getById(1))
+        return ApiResult(service.getById(1))
     }
 
     @GetMapping("/{id}")
     fun get(@PathVariable id: Int): ApiResult {
-        return ApiResult()
+        return ApiResult(service.getById(id))
     }
 
-    @PostMapping("/{id}")
-    fun post(@PathVariable id: Int, account: Account): ApiResult {
-        return ApiResult()
+    @PostMapping("/")
+    fun post(account: Account): ApiResult {
+        return ApiResult(service.save(account))
     }
 
     @PutMapping("/{id}")
-    fun put(@PathVariable id: Int): ApiResult {
-        return ApiResult()
+    fun put(@PathVariable id: Int, account: Account): ApiResult {
+        account.id = id
+        return ApiResult(service.updateById(account))
     }
 
     @DeleteMapping("/{id}")
     fun delete(@PathVariable id: Int): ApiResult {
-        return ApiResult()
+        return ApiResult(service.removeById(id))
     }
 }
-

@@ -7,14 +7,14 @@ import java.util.*
  */
 data class Account (
     var id:Int = 0,
-    var username:String = "",
-    var password:String = "",
-    var email:String = "",
-    var status:Int = 0,
-    var createIp:String = "",
-    var createDate:Date = Date(),
-    var createUser:String = "",
-    var updateDate:Date = Date(),
-    var updateUser:String = "",
-    var lastIp:String = ""
+    var username:String? = "",
+    var password:String? = "",
+    var email:String? = "",
+    var status:Int? = 0,
+    var createIp:String? = "",
+    var createDate:Date? = Date(),
+    var createUser:Int? = 0,
+    var updateDate:Date? = Date(),
+    var updateUser:Int? = 0,
+    var lastIp:String? = ""
 )
