@@ -5,16 +5,16 @@ import java.util.*
 /**
  * 用户账户
  */
-data class Account(
-    val id:Int = 0,
-    val username:String = "",
-    val password:String = "",
-    val email:String = "",
-    val status:Int = 0,
-    val createIp:String = "",
-    val createDate:Date = Date(),
-    val createUser:String = "",
-    val updateDate:Date = Date(),
-    val updateUser:String = "",
-    val lastIp:String = ""
+data class Account (
+    var id:Int = 0,
+    var username:String = "",
+    var password:String = "",
+    var email:String = "",
+    var status:Int = 0,
+    var createIp:String = "",
+    var createDate:Date = Date(),
+    var createUser:String = "",
+    var updateDate:Date = Date(),
+    var updateUser:String = "",
+    var lastIp:String = ""
 )

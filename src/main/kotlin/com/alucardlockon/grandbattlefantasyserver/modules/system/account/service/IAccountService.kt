@@ -1,5 +1,7 @@
 package com.alucardlockon.grandbattlefantasyserver.modules.system.account.service
 
-interface IAccountService {
-    fun getById(id:Int):Int
+import com.alucardlockon.grandbattlefantasyserver.modules.system.account.entity.Account
+import com.baomidou.mybatisplus.extension.service.IService
+
+interface IAccountService: IService<Account> {
 }
