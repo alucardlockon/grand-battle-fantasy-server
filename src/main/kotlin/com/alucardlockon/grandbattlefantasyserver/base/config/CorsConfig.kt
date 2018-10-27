@@ -13,7 +13,7 @@ import org.springframework.web.filter.CorsFilter
 @Configuration
 class CorsConfig {
     @Bean
-    fun corsFilter(): FilterRegistrationBean<*> {
+    fun corsFilter(): CorsFilter{
         val source = UrlBasedCorsConfigurationSource()
         val config = CorsConfiguration()
         config.allowCredentials = true
@@ -21,8 +21,6 @@ class CorsConfig {
         config.addAllowedHeader("*")
         config.addAllowedMethod("*")
         source.registerCorsConfiguration("/**", config)
-        val bean = FilterRegistrationBean(CorsFilter(source))
-        bean.order = 0
-        return bean
+        return CorsFilter(source)
     }
 }

@@ -16,5 +16,6 @@ data class Account (
     var createUser:Int? = 0,
     var updateDate:Date? = Date(),
     var updateUser:Int? = 0,
-    var lastIp:String? = ""
+    var lastIp:String? = "",
+    var roles:String? = ""
 )

@@ -11,7 +11,8 @@ CREATE TABLE account
     create_user int(10),
     update_date datetime DEFAULT current_time,
     update_user int(10),
-    last_ip varchar(20) COMMENT '最后登录ip'
+    last_ip varchar(20) COMMENT '最后登录ip',
+    roles varchar(100) COMMENT '角色'
 );
 ALTER TABLE account COMMENT = '用户账户';
 

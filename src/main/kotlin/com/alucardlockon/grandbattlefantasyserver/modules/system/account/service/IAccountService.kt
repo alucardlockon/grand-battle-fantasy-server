@@ -4,4 +4,5 @@ import com.alucardlockon.grandbattlefantasyserver.modules.system.account.entity.
 import com.baomidou.mybatisplus.extension.service.IService
 
 interface IAccountService: IService<Account> {
+    fun getByUsername(username: String): Account?
 }
