@@ -6,9 +6,13 @@ import java.util.ArrayList
 import org.springframework.security.core.userdetails.UsernameNotFoundException
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.context.annotation.Bean
 import org.springframework.security.core.userdetails.User
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.stereotype.Service
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
+
+
 
 
 @Service
@@ -36,6 +40,11 @@ internal constructor(private val userService: AccountService) : UserDetailsServi
             simpleGrantedAuthorities.add(SimpleGrantedAuthority(role))
         }
         return simpleGrantedAuthorities
+    }
+
+    @Bean
+    fun passwordEncoder(): BCryptPasswordEncoder {
+        return BCryptPasswordEncoder()
     }
 
 }

@@ -10,6 +10,8 @@ import org.springframework.web.cors.CorsConfiguration
 import org.springframework.web.cors.CorsConfigurationSource
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.http.HttpMethod
+import org.springframework.security.web.authentication.AuthenticationFailureHandler
 
 
 @EnableWebSecurity
@@ -22,6 +24,11 @@ class WebSecurityConfig: WebSecurityConfigurerAdapter() {
         this.anyUserDetailsService = anyUserDetailsService
     }
 
+    @Autowired
+    lateinit var myCustomLoginAuthenticationSuccessHandler: CustomLoginAuthenticationSuccessHandler
+    @Autowired
+    lateinit var myCustomLoginAuthenticationFailureHandler: CustomLoginAuthenticationFailureHandler
+
     @Throws(Exception::class)
     override fun configure(http: HttpSecurity) {
         // 无需使用csrf
@@ -31,9 +38,10 @@ class WebSecurityConfig: WebSecurityConfigurerAdapter() {
         // 其他安全设置
         http
                 .authorizeRequests()
+                .antMatchers(HttpMethod.POST, "/account/").anonymous()
                 .anyRequest().authenticated()
                 .and()
-                .formLogin().loginPage("/login").permitAll()
+                .formLogin().loginPage("/login").successHandler(myCustomLoginAuthenticationSuccessHandler).failureHandler(myCustomLoginAuthenticationFailureHandler).permitAll()
                 .and()
     }
 

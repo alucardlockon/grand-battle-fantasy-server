@@ -6,8 +6,8 @@ import com.alucardlockon.grandbattlefantasyserver.modules.system.account.service
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.security.crypto.bcrypt.BCrypt
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
+import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.web.bind.annotation.*
 
 @RestController
@@ -15,6 +15,9 @@ import org.springframework.web.bind.annotation.*
 class AccountController {
     @Autowired
     lateinit var service: AccountService
+
+    @Autowired
+    lateinit var passwordEncoder: PasswordEncoder
 
     @GetMapping("/")
     fun list(page: Page<Account>): ApiResult {
@@ -28,7 +31,7 @@ class AccountController {
 
     @PostMapping("/")
     fun post(@RequestBody account: Account): ApiResult {
-        account.password = BCryptPasswordEncoder().encode(account.password)
+        account.password = passwordEncoder.encode(account.password)
         return ApiResult(service.save(account))
     }
 
@@ -43,9 +46,11 @@ class AccountController {
         return ApiResult(service.removeById(id))
     }
 
+    /*
     @PostMapping("/login")
     fun login(@RequestBody account: Account): ApiResult {
         println(BCryptPasswordEncoder().encode(account.password))
         return ApiResult(service.getOne(QueryWrapper<Account>(Account(username = account.username,password = BCryptPasswordEncoder().encode(account.password)))))
     }
+    */
 }
