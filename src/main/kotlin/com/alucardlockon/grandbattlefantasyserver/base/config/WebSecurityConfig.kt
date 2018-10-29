@@ -1,7 +1,5 @@
 package com.alucardlockon.grandbattlefantasyserver.base.config
 
-import com.alucardlockon.grandbattlefantasyserver.modules.system.account.service.impl.AccountService
-import com.google.common.collect.ImmutableList
 import org.springframework.context.annotation.Bean
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
@@ -12,7 +10,6 @@ import org.springframework.web.cors.CorsConfiguration
 import org.springframework.web.cors.CorsConfigurationSource
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource
 import org.springframework.beans.factory.annotation.Autowired
-
 
 
 @EnableWebSecurity
@@ -27,13 +24,17 @@ class WebSecurityConfig: WebSecurityConfigurerAdapter() {
 
     @Throws(Exception::class)
     override fun configure(http: HttpSecurity) {
+        // 无需使用csrf
+        http.csrf().disable()
+        // spring security跨域设置
+        http.cors().configurationSource(corsConfigurationSource())
+        // 其他安全设置
         http
                 .authorizeRequests()
-                .anyRequest().permitAll()
+                .anyRequest().authenticated()
                 .and()
-                .cors()
+                .formLogin().loginPage("/login").permitAll()
                 .and()
-                .csrf().ignoringAntMatchers("/**")
     }
 
     @Throws(Exception::class)
@@ -43,15 +44,22 @@ class WebSecurityConfig: WebSecurityConfigurerAdapter() {
                 .passwordEncoder(BCryptPasswordEncoder())
     }
 
+    /**
+     * 跨域设置
+     */
     @Bean
     fun corsConfigurationSource(): CorsConfigurationSource {
-        val configuration = CorsConfiguration()
-        configuration.allowedOrigins = ImmutableList.of("*")
-        configuration.allowedMethods = ImmutableList.of("HEAD",
-                "GET", "POST", "PUT", "DELETE", "PATCH")
-        val source = UrlBasedCorsConfigurationSource()
-        source.registerCorsConfiguration("/**", configuration)
-        return source
+        val corsConfiguration = CorsConfiguration()
+        corsConfiguration.addAllowedMethod(CorsConfiguration.ALL)
+        corsConfiguration.addAllowedHeader(CorsConfiguration.ALL)
+        corsConfiguration.addExposedHeader("Authorization")
+        corsConfiguration.addAllowedOrigin("*")
+        corsConfiguration.allowCredentials = true
+
+        val corsSource = UrlBasedCorsConfigurationSource()
+        corsSource.registerCorsConfiguration("/**", corsConfiguration)
+
+        return corsSource
     }
 
 }

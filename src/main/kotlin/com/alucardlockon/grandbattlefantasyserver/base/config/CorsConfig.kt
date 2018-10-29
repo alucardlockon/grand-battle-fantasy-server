@@ -10,6 +10,8 @@ import org.springframework.web.filter.CorsFilter
 /**
  * 跨域设置
  */
+/*
+
 @Configuration
 class CorsConfig {
     @Bean
@@ -23,4 +25,4 @@ class CorsConfig {
         source.registerCorsConfiguration("/**", config)
         return CorsFilter(source)
     }
-}
+}*/
