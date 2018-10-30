@@ -46,6 +46,11 @@ class AccountController {
         return ApiResult(service.removeById(id))
     }
 
+    @PostMapping("/test")
+    fun test(@RequestBody anyThiny:String): ApiResult {
+        return ApiResult(anyThiny)
+    }
+
     /*
     @PostMapping("/login")
     fun login(@RequestBody account: Account): ApiResult {

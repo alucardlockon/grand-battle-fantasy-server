@@ -11,7 +11,12 @@ import org.springframework.web.cors.CorsConfigurationSource
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpMethod
+import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.web.authentication.AuthenticationFailureHandler
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
+import org.springframework.security.web.authentication.Http403ForbiddenEntryPoint
+
+
 
 
 @EnableWebSecurity
@@ -35,21 +40,27 @@ class WebSecurityConfig: WebSecurityConfigurerAdapter() {
         http.csrf().disable()
         // spring security跨域设置
         http.cors().configurationSource(corsConfigurationSource())
+        http.exceptionHandling().authenticationEntryPoint(Http403ForbiddenEntryPoint())
         // 其他安全设置
         http
                 .authorizeRequests()
-                .antMatchers(HttpMethod.POST, "/account/").anonymous()
+                .antMatchers(HttpMethod.POST, "/account/").permitAll()
+                .antMatchers(HttpMethod.POST, "/login").permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .formLogin().loginPage("/login").successHandler(myCustomLoginAuthenticationSuccessHandler).failureHandler(myCustomLoginAuthenticationFailureHandler).permitAll()
+                //.formLogin().loginPage("/login").successHandler(myCustomLoginAuthenticationSuccessHandler).failureHandler(myCustomLoginAuthenticationFailureHandler).permitAll()
+                //.and()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
+                .addFilterBefore(JWTLoginFilter(authenticationManager()), UsernamePasswordAuthenticationFilter::class.java)
+                .addFilterBefore(TokenAuthorizationFilter(authenticationManager()), UsernamePasswordAuthenticationFilter::class.java)
     }
 
     @Throws(Exception::class)
     override fun configure(auth: AuthenticationManagerBuilder?) {
         // auth.inMemoryAuthentication().passwordEncoder(BCryptPasswordEncoder())
         auth!!.userDetailsService<AnyUserDetailsService>(anyUserDetailsService)
-                .passwordEncoder(BCryptPasswordEncoder())
+                .passwordEncoder(BCryptPasswordEncoder()).and()
     }
 
     /**

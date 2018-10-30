@@ -22,6 +22,8 @@ internal constructor(private val userService: AccountService) : UserDetailsServi
     @Throws(UsernameNotFoundException::class)
     override fun loadUserByUsername(username: String): UserDetails {
         val userEntity = userService.getByUsername(username) ?: throw UsernameNotFoundException("用户不存在！")
+        // val simpleGrantedAuthorities = createAuthorities(userEntity.roles!!)
+        // return User(userEntity.username, userEntity.password, simpleGrantedAuthorities)
         val simpleGrantedAuthorities = createAuthorities(userEntity.roles!!)
         return User(userEntity.username, userEntity.password, simpleGrantedAuthorities)
     }
