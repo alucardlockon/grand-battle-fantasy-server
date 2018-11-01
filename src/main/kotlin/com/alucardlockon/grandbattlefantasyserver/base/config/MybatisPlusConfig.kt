@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.transaction.annotation.EnableTransactionManagement
 
-
+/*
 @EnableTransactionManagement(proxyTargetClass = true)
 @Configuration
 @MapperScan("com.baomidou.cloud.service.*.mapper*")
@@ -20,3 +20,4 @@ class MybatisPlusConfig {
         return PaginationInterceptor()
     }
 }
+*/

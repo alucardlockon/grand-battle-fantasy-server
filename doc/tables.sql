@@ -28,6 +28,7 @@ CREATE TABLE player
     level int(10) COMMENT '等级',
     exp int(10) COMMENT '经验值',
     ap int(10) COMMENT '行动点',
+    maxAp int(10) COMMENT '最大行动点',
     is_enabled bit(1) COMMENT '启用状态',
     create_date datetime DEFAULT current_time,
     create_user int(10),

@@ -12,7 +12,6 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpMethod
 import org.springframework.security.config.http.SessionCreationPolicy
-import org.springframework.security.web.authentication.AuthenticationFailureHandler
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
 import org.springframework.security.web.authentication.Http403ForbiddenEntryPoint
 
@@ -29,11 +28,6 @@ class WebSecurityConfig: WebSecurityConfigurerAdapter() {
         this.anyUserDetailsService = anyUserDetailsService
     }
 
-    @Autowired
-    lateinit var myCustomLoginAuthenticationSuccessHandler: CustomLoginAuthenticationSuccessHandler
-    @Autowired
-    lateinit var myCustomLoginAuthenticationFailureHandler: CustomLoginAuthenticationFailureHandler
-
     @Throws(Exception::class)
     override fun configure(http: HttpSecurity) {
         // 无需使用csrf
@@ -46,7 +40,8 @@ class WebSecurityConfig: WebSecurityConfigurerAdapter() {
                 .authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/account/").permitAll()
                 .antMatchers(HttpMethod.POST, "/login").permitAll()
-                .anyRequest().authenticated()
+                // swagger-ui
+                .antMatchers("/v2/api-docs", "/configuration/ui", "/swagger-resources", "/configuration/security", "/swagger-ui.html", "/webjars/**").permitAll()
                 .and()
                 //.formLogin().loginPage("/login").successHandler(myCustomLoginAuthenticationSuccessHandler).failureHandler(myCustomLoginAuthenticationFailureHandler).permitAll()
                 //.and()

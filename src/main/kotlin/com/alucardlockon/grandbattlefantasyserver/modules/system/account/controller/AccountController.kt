@@ -1,8 +1,10 @@
 package com.alucardlockon.grandbattlefantasyserver.modules.system.account.controller
 
 import com.alucardlockon.grandbattlefantasyserver.base.api.ApiResult
+import com.alucardlockon.grandbattlefantasyserver.base.api.PagerInfo
 import com.alucardlockon.grandbattlefantasyserver.modules.system.account.entity.Account
 import com.alucardlockon.grandbattlefantasyserver.modules.system.account.service.impl.AccountService
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.core.context.SecurityContextHolder
@@ -20,8 +22,9 @@ class AccountController {
     lateinit var passwordEncoder: PasswordEncoder
 
     @GetMapping("/")
-    fun list(page: Page<Account>): ApiResult {
-        return ApiResult(service.getById(1))
+    fun list(pager: PagerInfo): ApiResult {
+        val page = Page<Account>(pager.pageNumber, pager.pageSize)
+        return ApiResult(service.page(page, QueryWrapper<Account>()))
     }
 
     @GetMapping("/{id}")
