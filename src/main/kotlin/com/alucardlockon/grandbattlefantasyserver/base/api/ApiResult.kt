@@ -1,36 +1,37 @@
 package com.alucardlockon.grandbattlefantasyserver.base.api
 
-data class ApiResult(
-        var data: HashMap<String, Any?>? = null,
-        var error: String? = null,
-        var code: Int? = 200
-) {
-    constructor(value: Any?) : this(HashMap(), null, 200) {
-        this.data?.put("data", value)
+class ApiResult() :HashMap<String,Any?>() {
+    init{
+        this["code"] = 200
+        this["error"] = null
+        this["data"] = null
+    }
+    constructor(value: Any?) : this() {
+        this["data"] = value
     }
 
-    constructor(key: String, value: Any?) : this(HashMap(), null, 200) {
+    constructor(key: String, value: Any?) : this() {
         chain(key, value)
     }
 
-    constructor(error: Exception) : this(HashMap(), null, 500) {
+    constructor(error: Exception) : this() {
         error(error)
     }
 
     fun chain(key: String, value: Any?): ApiResult {
-        this.data?.put(key, value)
+        this[key] = value
         return this
     }
 
     fun error(error: Exception): ApiResult {
-        this.error = error.message
-        if (this.code == 200)
-            this.code =  500
+        this["error"] = error.message
+        if (this["code"] == 200)
+            this["code"] = 500
         return this
     }
 
     fun code(code: Int?): ApiResult {
-        this.code = code
+        this["code"] = code
         return this
     }
 }

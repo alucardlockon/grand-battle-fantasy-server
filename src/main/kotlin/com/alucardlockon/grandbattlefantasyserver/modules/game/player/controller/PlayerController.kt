@@ -6,10 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page
 import org.springframework.web.bind.annotation.*
 import com.alucardlockon.grandbattlefantasyserver.base.api.ApiResult
-import com.alucardlockon.grandbattlefantasyserver.base.api.PagerInfo
 import io.swagger.annotations.Api
 import io.swagger.annotations.ApiOperation
 import io.swagger.annotations.ApiParam
+import com.alucardlockon.grandbattlefantasyserver.base.api.PagerInfo
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper
 
 /**
  * 玩家账户 控制器
@@ -29,7 +30,7 @@ class PlayerController{
     @GetMapping("/")
     fun list(@ApiParam("分页参数") pager: PagerInfo): ApiResult {
         val page = Page<Player>(pager.pageNumber, pager.pageSize)
-        return ApiResult(playerService.getById(1))
+        return ApiResult(playerService.page(page, QueryWrapper<Player>()))
     }
 
     @ApiOperation("获取玩家账户")

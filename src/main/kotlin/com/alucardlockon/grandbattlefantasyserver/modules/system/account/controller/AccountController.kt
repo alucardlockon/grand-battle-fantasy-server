@@ -9,6 +9,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page
 import io.swagger.annotations.Api
 import io.swagger.annotations.ApiOperation
 import io.swagger.annotations.ApiParam
+import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.crypto.password.PasswordEncoder
@@ -28,6 +29,7 @@ class AccountController {
     @ApiOperation("获取帐户列表")
     @GetMapping("/")
     fun list(@ApiParam("分页参数") pager: PagerInfo): ApiResult {
+        val logger = LoggerFactory.getLogger(this.javaClass)
         val page = Page<Account>(pager.pageNumber, pager.pageSize)
         return ApiResult(service.page(page, QueryWrapper<Account>()))
     }

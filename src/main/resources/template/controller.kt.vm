@@ -10,6 +10,7 @@ import io.swagger.annotations.Api
 import io.swagger.annotations.ApiOperation
 import io.swagger.annotations.ApiParam
 import com.alucardlockon.grandbattlefantasyserver.base.api.PagerInfo
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper
 
 /**
  * $!{table.comment} 控制器
@@ -29,7 +30,7 @@ class ${table.controllerName}{
     @GetMapping("/")
     fun list(@ApiParam("分页参数") pager: PagerInfo): ApiResult {
         val page = Page<${entity}>(pager.pageNumber, pager.pageSize)
-        return ApiResult(${table.entityPath}Service.getById(1))
+        return ApiResult(${table.entityPath}Service.page(page, QueryWrapper<${entity}>()))
     }
 
     @ApiOperation("获取$!{table.comment}")
