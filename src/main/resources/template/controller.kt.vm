@@ -1,0 +1,48 @@
+package ${package.Controller}
+
+import ${package.Entity}.${entity}
+import ${package.Service}.${table.serviceName}
+import org.springframework.beans.factory.annotation.Autowired
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page
+import org.springframework.web.bind.annotation.*
+import com.alucardlockon.grandbattlefantasyserver.base.api.ApiResult
+
+/**
+ * $!{table.comment} 控制器
+ *
+ * @author ${author}
+ * @since ${date}
+ */
+@RestController
+@RequestMapping("${table.entityPath}")
+class ${table.controllerName}{
+
+    @Autowired
+    lateinit var ${table.entityPath}Service: ${table.serviceName}
+
+    @GetMapping("/")
+    fun list(page: Page<${entity}>): ApiResult {
+        return ApiResult(${table.entityPath}Service.getById(1))
+    }
+
+    @GetMapping("/{id}")
+    fun get(@PathVariable id: Int): ApiResult {
+        return ApiResult(${table.entityPath}Service.getById(id))
+    }
+
+    @PostMapping("/")
+    fun post(@RequestBody ${table.entityPath}:  ${entity}): ApiResult {
+        return ApiResult(${table.entityPath}Service.save(${table.entityPath}))
+    }
+
+    @PutMapping("/{id}")
+    fun put(@PathVariable id: Int,@RequestBody ${table.entityPath}: ${entity}): ApiResult {
+        ${table.entityPath}.id = id
+        return ApiResult(${table.entityPath}Service.updateById(${table.entityPath}))
+    }
+
+    @DeleteMapping("/{id}")
+    fun delete(@PathVariable id: Int): ApiResult {
+        return ApiResult(${table.entityPath}Service.removeById(id))
+    }
+}

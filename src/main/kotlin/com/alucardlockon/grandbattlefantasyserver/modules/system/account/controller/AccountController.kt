@@ -3,12 +3,12 @@ package com.alucardlockon.grandbattlefantasyserver.modules.system.account.contro
 import com.alucardlockon.grandbattlefantasyserver.base.api.ApiResult
 import com.alucardlockon.grandbattlefantasyserver.modules.system.account.entity.Account
 import com.alucardlockon.grandbattlefantasyserver.modules.system.account.service.impl.AccountService
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
+import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.web.bind.annotation.*
+import javax.annotation.security.RolesAllowed
 
 @RestController
 @RequestMapping("/account")
@@ -36,6 +36,7 @@ class AccountController {
     }
 
     @PutMapping("/{id}")
+    @RolesAllowed("ADMIN")
     fun put(@PathVariable id: Int,@RequestBody account: Account): ApiResult {
         account.id = id
         return ApiResult(service.updateById(account))
@@ -49,6 +50,12 @@ class AccountController {
     @PostMapping("/test")
     fun test(@RequestBody anyThiny:String): ApiResult {
         return ApiResult(anyThiny)
+    }
+
+    @GetMapping("/self")
+    fun get(): ApiResult {
+        val username = SecurityContextHolder.getContext().authentication.name
+        return ApiResult(service.getByUsername(username))
     }
 
     /*

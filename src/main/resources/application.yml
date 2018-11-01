@@ -4,8 +4,14 @@ spring:
     username: root
     password: 1234
     driver-class-name: com.mysql.cj.jdbc.Driver
+  resources:
+    static-locations: classpath:/resources/
 server:
   port: 8088
 logging:
   level:
     logging.level.com.alucardlockon.grandbattlefantasyserver.*: debug
+mybatis-plus:
+  global-config:
+    db-config:
+      id-type: auto

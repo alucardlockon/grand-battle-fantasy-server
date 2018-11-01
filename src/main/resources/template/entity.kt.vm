@@ -1,0 +1,19 @@
+package ${package.Entity}
+
+import java.util.*
+import com.baomidou.mybatisplus.annotation.TableName
+
+/**
+ * $!{table.comment} 数据类
+ *
+ * @author ${author}
+ * @since ${date}
+ */
+@TableName("${table.name}")
+data class ${entity}  (
+#foreach($field in ${table.fields})
+        var ${field.propertyName}: #if ($field.propertyType == "String") Int?#elseif ($field.propertyType == "LocalDateTime") Date?#elseif ($field.propertyType == "Boolean") Boolean?#elseif ($field.propertyType == "Integer") Int?#else ${field.propertyType}#end#if($velocityCount != $table.fields.size()),
+#end
+#end
+
+)

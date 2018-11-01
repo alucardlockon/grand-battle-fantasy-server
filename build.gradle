@@ -57,4 +57,5 @@ dependencies {
     implementation group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
     implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.8.1'
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '2.0.6.RELEASE'
+    testCompile group: 'org.apache.velocity', name: 'velocity', version: '1.7'
 }
