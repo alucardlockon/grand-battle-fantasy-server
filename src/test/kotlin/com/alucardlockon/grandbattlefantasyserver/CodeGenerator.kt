@@ -1,6 +1,8 @@
 package com.alucardlockon.grandbattlefantasyserver
 
 import com.baomidou.mybatisplus.core.toolkit.StringPool
+
+import com.baomidou.mybatisplus.core.toolkit.StringUtils
 import com.baomidou.mybatisplus.generator.InjectionConfig
 import com.baomidou.mybatisplus.generator.AutoGenerator
 import com.baomidou.mybatisplus.generator.config.*
@@ -16,13 +18,20 @@ import java.util.*
 @RunWith(SpringRunner::class)
 @SpringBootTest
 class CodeGenerator {
-
     @Test
     fun main() {
+        val parentPackageName = "game"
+        val tableNames = arrayOf("game_character", "player")
+        for (tableName in tableNames)
+            genCode(tableName,parentPackageName)
+    }
+
+    fun genCode(tableName: String, parentPackageName: String) {
         // 代码生成器
         val mpg = AutoGenerator()
-        val tableName = "player"
-        var packageName = "player"
+        // val tableName = "game_character"
+        // val packageName = "main"
+        val packageName = StringUtils.underlineToCamel(tableName)
 
         // 全局配置
         val gc = GlobalConfig()
@@ -46,7 +55,7 @@ class CodeGenerator {
         // 包配置
         val pc = PackageConfig()
         pc.moduleName = packageName
-        pc.parent = "com.alucardlockon.grandbattlefantasyserver.modules"
+        pc.parent = "com.alucardlockon.grandbattlefantasyserver.modules.${parentPackageName}"
         mpg.packageInfo = pc
 
         // 自定义配置
