@@ -10,11 +10,47 @@ spring:
     static-locations: classpath:/resources/
 server:
   port: 8088
-logging:
-  level:
-    logging.level.com.alucardlockon.grandbattlefantasyserver.*: debug
+#logging:
+#  level:
+#    logging.level.com.alucardlockon.grandbattlefantasyserver.*: debug
 mybatis-plus:
   global-config:
     db-config:
       id-type: auto
     banner: false
+
+---
+# 开发环境
+spring:
+  profiles: dev
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/grandbf
+    username: root
+    password: 1234
+
+---
+# 生产环境
+spring:
+  profiles: prod
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/grandbf
+    username: root
+    password: 1234
+
+---
+# 预发布环境
+spring:
+  profiles: sit
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/grandbf
+    username: root
+    password: 1234
+
+---
+# 测试环境
+spring:
+  profiles: test
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/grandbf
+    username: root
+    password: 1234

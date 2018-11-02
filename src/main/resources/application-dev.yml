@@ -1,4 +1,0 @@
-logging:
-  level:
-    logging.level.com.alucardlockon.grandbattlefantasyserver.*: debug
-    logging.level.org.springframework: debug

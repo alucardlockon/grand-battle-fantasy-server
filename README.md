@@ -6,8 +6,11 @@ a simple java server for grand battle fantasy game
 - kotlin代码生成(完毕)
 - spring security整合jwt(完毕)
 - swagger-ui(完毕)
-- sql日志输出
+- sql及请求日志输出(完毕)
 
 ### 计划中的内容
 - 使用java开发
+- 缓存支持
 - docker支持
+- https支持
+- 微服务开发
