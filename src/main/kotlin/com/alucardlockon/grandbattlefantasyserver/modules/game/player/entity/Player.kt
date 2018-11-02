@@ -2,6 +2,7 @@ package com.alucardlockon.grandbattlefantasyserver.modules.game.player.entity
 
 import java.util.*
 import com.baomidou.mybatisplus.annotation.TableName
+import java.io.Serializable
 
 /**
  * 玩家账户 数据类
@@ -24,4 +25,4 @@ data class Player  (
         var createUser:  Int?,
         var updateDate:  Date?,
         var updateUser:  Int?
-)
+): Serializable

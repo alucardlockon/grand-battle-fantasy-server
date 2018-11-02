@@ -1,6 +1,7 @@
 package com.alucardlockon.grandbattlefantasyserver.modules.system.account.entity
 
 import com.fasterxml.jackson.annotation.JsonIgnore
+import java.io.Serializable
 import java.util.*
 
 /**
@@ -21,4 +22,4 @@ data class Account (
     var lastIp:String? = "",
     @JsonIgnore
     var roles:String? = ""
-)
+): Serializable

@@ -2,6 +2,7 @@ package com.alucardlockon.grandbattlefantasyserver.modules.game.gameCharacter.en
 
 import java.util.*
 import com.baomidou.mybatisplus.annotation.TableName
+import java.io.Serializable
 
 /**
  * 游戏角色 数据类
@@ -10,7 +11,7 @@ import com.baomidou.mybatisplus.annotation.TableName
  * @since 2018-11-01
  */
 @TableName("game_character")
-data class GameCharacter  (
+data class GameCharacter (
         var id:  Int?,
         var characterName:  Int?,
         var hp:  Int?,
@@ -31,4 +32,4 @@ data class GameCharacter  (
         var createUser:  Int?,
         var updateDate:  Date?,
         var updateUser:  Int?
-)
+) : Serializable

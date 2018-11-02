@@ -8,6 +8,9 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
   resources:
     static-locations: classpath:/resources/
+  cache:
+    jcache:
+      config: classpath:ehcache.xml
 server:
   port: 8088
 #logging:

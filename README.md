@@ -7,10 +7,10 @@ a simple java server for grand battle fantasy game
 - spring security整合jwt(完毕)
 - swagger-ui(完毕)
 - sql及请求日志输出(完毕)
+- 使用java开发(已支持)
+- 缓存支持(已添加Ehcache)
 
 ### 计划中的内容
-- 使用java开发
-- 缓存支持
 - docker支持
 - https支持
 - 微服务开发
