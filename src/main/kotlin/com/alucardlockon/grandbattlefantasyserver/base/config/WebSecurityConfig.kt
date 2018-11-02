@@ -41,7 +41,14 @@ class WebSecurityConfig: WebSecurityConfigurerAdapter() {
                 .antMatchers(HttpMethod.POST, "/account/").permitAll()
                 .antMatchers(HttpMethod.POST, "/login").permitAll()
                 // swagger-ui
-                .antMatchers("/v2/api-docs", "/configuration/ui", "/swagger-resources", "/configuration/security", "/swagger-ui.html", "/webjars/**").permitAll()
+                .antMatchers("/v2/api-docs",
+                        "/swagger-resources",
+                        "/swagger-resources/**",
+                        "/configuration/ui",
+                        "/configuration/security",
+                        "/swagger-ui.html",
+                        "/webjars/**").permitAll()
+                .anyRequest().authenticated()
                 .and()
                 //.formLogin().loginPage("/login").successHandler(myCustomLoginAuthenticationSuccessHandler).failureHandler(myCustomLoginAuthenticationFailureHandler).permitAll()
                 //.and()
