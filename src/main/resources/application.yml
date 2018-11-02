@@ -21,6 +21,21 @@ mybatis-plus:
     db-config:
       id-type: auto
     banner: false
+swagger:
+  version: 1.0
+  ui-config:
+    show-request-headers: true
+    filter: true
+    display-request-duration: true
+    request-timeout: 5000
+  authorization:
+    name: Authorization
+    key-name: Authorization
+  enabled: true
+  license: MIT
+  description: api文档
+  base-package: com.alucardlockon.grandbattlefantasyserver
+  termsOfServiceUrl: https://github.com/alucardlockon/grand-battle-fantasy-server
 
 ---
 # 开发环境
@@ -39,6 +54,8 @@ spring:
     url: jdbc:mysql://127.0.0.1:3306/grandbf
     username: root
     password: 1234
+swagger:
+  enabled: false
 
 ---
 # 预发布环境
