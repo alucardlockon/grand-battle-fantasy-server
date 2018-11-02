@@ -31,7 +31,7 @@ class CodeGenerator {
         val mpg = AutoGenerator()
         // val tableName = "game_character"
         // val packageName = "main"
-        val packageName = StringUtils.underlineToCamel(tableName)
+        val packageName = StringUtils.underlineToCamel(tableName).toLowerCase()
 
         // 全局配置
         val gc = GlobalConfig()

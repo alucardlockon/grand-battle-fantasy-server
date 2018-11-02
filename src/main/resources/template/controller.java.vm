@@ -1,0 +1,60 @@
+package ${package.Controller};
+
+import ${package.Entity}.${entity};
+import ${package.Service}.${table.serviceName};
+import org.springframework.beans.factory.annotation.Autowired;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import org.springframework.web.bind.annotation.*;
+import com.alucardlockon.grandbattlefantasyserver.base.api.ApiResult;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import com.alucardlockon.grandbattlefantasyserver.base.api.PagerInfo;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+
+/**
+ * $!{table.comment} 控制器
+ *
+ * @author ${author}
+ * @since ${date}
+ */
+@Api(tags = "$!{table.comment}")
+@RestController
+@RequestMapping("${table.entityPath}")
+public class ${table.controllerName}{
+
+    @Autowired
+    private ${table.serviceName} ${table.entityPath}Service;
+
+    @ApiOperation("获取$!{table.comment}列表")
+    @GetMapping("/")
+    public ApiResult list(@ApiParam("分页参数") PagerInfo pager) {
+        Page<${entity}> page = new Page<>(pager.getPageNumber(), pager.getPageSize());
+        return new ApiResult(${table.entityPath}Service.page(page,new QueryWrapper<>()));
+    }
+
+    @ApiOperation("获取$!{table.comment}")
+    @GetMapping("/{id}")
+    public ApiResult get(@PathVariable Integer id) {
+        return new ApiResult(${table.entityPath}Service.getById(id));
+    }
+
+    @ApiOperation("创建$!{table.comment}")
+    @PostMapping("/")
+    public ApiResult post(@RequestBody ${entity} ${table.entityPath}) {
+        return new ApiResult(${table.entityPath}Service.save(${table.entityPath}));
+    }
+
+    @ApiOperation("更新$!{table.comment}")
+    @PutMapping("/{id}")
+    public ApiResult put(@PathVariable Integer id,@RequestBody ${entity} ${table.entityPath}) {
+        ${table.entityPath}.setId(id);
+        return new ApiResult(${table.entityPath}Service.updateById(${table.entityPath}));
+    }
+
+    @ApiOperation("删除$!{table.comment}")
+    @DeleteMapping("/{id}")
+    public ApiResult delete(@PathVariable Integer id) {
+        return new ApiResult(${table.entityPath}Service.removeById(id));
+    }
+}

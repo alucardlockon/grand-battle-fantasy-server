@@ -18,7 +18,7 @@ class ApiResult() :HashMap<String,Any?>() {
         error(error)
     }
 
-    fun chain(key: String, value: Any?): ApiResult {
+    companion object fun chain(key: String, value: Any?): ApiResult {
         this[key] = value
         return this
     }
